@@ -1,5 +1,6 @@
 package com.mobileapplikationen.speiseplan.meallist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,12 +11,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.mobileapplikationenfhws.speiseplan.R;
+import com.mobilieapplikationen.speiseplan.mealdetail.MealdetailActivity;
 
 import java.util.ArrayList;
 
-public class MeallistActivity extends AppCompatActivity {
+public class MeallistActivity extends AppCompatActivity implements OnMealsClickListener {
 
-    ArrayList<Meal> foodData;
+    ArrayList<Meal> foodData = DataGen.generate();
+    int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +28,7 @@ public class MeallistActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        // "FETCH" DUMMY-DATA
-        foodData = new ArrayList<Meal>();
+
 
         /*
         for (int i = 0; i < 10; i++) {
@@ -37,28 +39,32 @@ public class MeallistActivity extends AppCompatActivity {
         // Fetch Meal-API-Data here:    (T_ASYNC)
 
 
-
-
-        foodData.add(new Meal("UID", "ID", "GERICHT", "PRICE", "PRICE_B", "PRICE_G", "TYPE", "DATE", "ADD", null));
-        foodData.add(new Meal("1", "1", "Hühnerragout", "3.05", "4.25", "5,15", "G", "19-09-2018", "A1", null));
-        foodData.add(new Meal("2", "2", "Bifteki", "3.55", "4.55", "5,55", "R", "19-09-2018", "A3", null));
-        foodData.add(new Meal("3", "3", "Cordon Bleu", "2.55", "3.70", "4,60", "G", "19-09-2018", "A2", null));
-        foodData.add(new Meal("4", "4", "Schweinesteak", "2.55", "3.70", "4,60", "S", "19-09-2018", "A1", null));
-        foodData.add(new Meal("5", "5", "Semmelknödel", "2.55", "3.70", "4,60", "FL", "19-09-2018", "A2", null));
-        foodData.add(new Meal("6", "6", "Schnitzel", "3.05", "4.25", "5,15", "S", "19-09-2018", "A1", null));
-        foodData.add(new Meal("7", "7", "Pizza Tonno", "4.05", "5.25", "6,15", "F", "19-09-2018", "Z1", null));
-        foodData.add(new Meal("8", "8", "Spaghetti", "2.05", "3.25", "4,15", "R", "19-09-2018", "A4", null));
-        foodData.add(new Meal("9", "9", "Currywurst", "2.55", "3.65", "4,35", "S", "19-09-2018", "Z2", null));
-        foodData.add(new Meal("10", "10", "Forelle", "4.05", "5.85", "7,15", "G", "19-09-2018", "Z3", null));
-
-
         // Init DATA
         RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        MeallistViewAdapter mAdapter = new MeallistViewAdapter(foodData);
+        MeallistViewAdapter mAdapter = new MeallistViewAdapter(foodData,this);
         mRecyclerView.setAdapter(mAdapter);
+
+        // IMPORTANT when view is pressed!
+
+
+
     }
 
+
+    @Override
+    public void onMealClick(int position) {
+        Intent intent = new Intent(MeallistActivity.this, MealdetailActivity.class);
+
+        intent.putExtra("foodData_name", foodData.get(pos).getName());
+        intent.putExtra("foodData_type", foodData.get(pos).getFoodtype());
+        // TODO implement mensa-name!!
+        intent.putExtra("foodData_date", foodData.get(pos).getValidOnDate());
+        intent.putExtra("foodData_price", foodData.get(pos).getPrice());
+        intent.putExtra("foodData_price_bed", foodData.get(pos).getPricebed());
+        intent.putExtra("foodData_price_guest", foodData.get(pos).getPriceguest());
+        startActivity(intent);
+    }
 }

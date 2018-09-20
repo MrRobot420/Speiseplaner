@@ -1,5 +1,8 @@
 package com.mobileapplikationen.speiseplan.meallist;
+//package com.mobileapplickationen*;
+import com.mobileapplikationen.speiseplan.meallist.MeallistActivity.*;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mobileapplikationenfhws.speiseplan.R;
+import com.mobilieapplikationen.speiseplan.mealdetail.MealdetailActivity;
 
 import org.w3c.dom.Text;
 
@@ -16,9 +20,12 @@ public class MeallistViewAdapter extends RecyclerView.Adapter<MeallistViewAdapte
 
     private final List<Meal> foodData;
 
+    private final OnMealsClickListener onMealsClickListener;
+
     // Constructor
-    public MeallistViewAdapter(List<Meal> foodData) {
+    public MeallistViewAdapter(List<Meal> foodData, final OnMealsClickListener onMealsClickListener ) {
         this.foodData = foodData;
+        this.onMealsClickListener = onMealsClickListener;
     }
 
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -45,7 +52,7 @@ public class MeallistViewAdapter extends RecyclerView.Adapter<MeallistViewAdapte
 
 
     // Inner class of Adapter
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener {
         private TextView name, price, price_prof, price_guest;
 
         public MyViewHolder(View itemView) {
@@ -55,6 +62,7 @@ public class MeallistViewAdapter extends RecyclerView.Adapter<MeallistViewAdapte
             price = itemView.findViewById(R.id.price);
             price_prof = itemView.findViewById(R.id.price_bed);
             price_guest = itemView.findViewById(R.id.price_guest);
+            itemView.setOnClickListener(this);
 
         }
 
@@ -85,16 +93,19 @@ public class MeallistViewAdapter extends RecyclerView.Adapter<MeallistViewAdapte
             this.price_guest.setText(guest_price);
         }
 
+        @Override
+        public void onClick(View v) {
+            int pos = getAdapterPosition();
+            Meal meal = MeallistViewAdapter.this.foodData.get(pos);
+            onMealsClickListener.onMealClick(pos);
+            //
+        }
 
-        // IMPORTANT when view is pressed!
 
-        //@Override
-        //public void onClick(View v) {
-        //    int pos = getAdapterPosition();
-        //    Meal meal = MeallistViewAdapter.this.foodData.get(pos); // inform the activity about the item click
-        //}
 
     }
+
+
 
     
 }

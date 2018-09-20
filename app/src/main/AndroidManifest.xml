@@ -22,6 +22,10 @@
         <activity
             android:name="com.mobileapplikationen.speiseplan.meallist.MeallistActivity"
             android:label="@string/title_activity_meallist"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.mobilieapplikationen.speiseplan.mealdetail.MealdetailActivity"
+            android:label="@string/title_activity_mealdetail"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

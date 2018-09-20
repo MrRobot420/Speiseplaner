@@ -45,7 +45,7 @@ public class MealdetailActivity extends AppCompatActivity {
         price_view.setText(price);
         price_b_view.setText(price_be);
         price_g_view.setText(price_gu);
-        
+
 
         if (type.toLowerCase().equals("r")) {
             type_view.setImageResource(R.drawable.cow_100);

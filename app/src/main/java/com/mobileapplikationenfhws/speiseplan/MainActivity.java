@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     //String mensen[] = {"Mensateria", "Hubland-Mensa", "Studentenhaus"};
     //String mensen[];
     String datum[];
+    String dayofweek;
     Switch switch_all;
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter_datum;
@@ -60,11 +61,13 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //Aktuelles Datum
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        datum = new String[6];
-        for (int i = 0; i <= 5; i++){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        datum = new String[7];
+        for (int i = 0; i <= 6; i++){
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DATE,i);
+            Integer dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+            dayofweek = dayOfWeek.toString();
             String next = sdf.format(cal.getTime());
             datum[i] = next;
         }
@@ -202,8 +205,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences pref_load = getSharedPreferences(MainActivity.speiseplaner_settings, MODE_PRIVATE);
         //int sp_mensa_pos = adapter.getPosition(pref_load.getString(key_mensa, ""));
         //sp_mensa.setSelection(sp_mensa_pos);
-        int sp_datum_pos = adapter_datum.getPosition(pref_load.getString(key_datum, ""));
-        sp_datum.setSelection(sp_datum_pos);
+        //int sp_datum_pos = adapter_datum.getPosition(pref_load.getString(key_datum, ""));
+        //sp_datum.setSelection(sp_datum_pos);
         // load CheckBoxes
         cb_fisch.setChecked(pref_load.getBoolean(key_fisch, false));
         cb_fleischlos.setChecked(pref_load.getBoolean(key_fleischlos, false));

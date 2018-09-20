@@ -8,4 +8,11 @@
     tools:context="com.mobileapplikationen.speiseplan.meallist.MeallistActivity"
     tools:showIn="@layout/activity_meallist">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
+
+
 </android.support.constraint.ConstraintLayout>

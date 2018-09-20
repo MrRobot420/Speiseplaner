@@ -3,39 +3,42 @@ package com.mobileapplikationen.speiseplan.meallist;
 public class Meal
 {
 
-    public Meal(String uid, String pricebed, String id, String price, String priceguest, String name, Self self, String validOnDate, String additivenumbers, String foodtype) {
+    public Meal(String uid, String id, String name, String price, String pricebed, String priceguest, String foodtype, String validOnDate, String additivenumbers, Self self) {
         this.uid = uid;
-        this.pricebed = pricebed;
         this.id = id;
-        this.price = price;
-        this.priceguest = priceguest;
         this.name = name;
-        this.self = self;
+        this.price = price;
+        this.pricebed = pricebed;
+        this.priceguest = priceguest;
+        this.foodtype = foodtype;
         this.validOnDate = validOnDate;
         this.additivenumbers = additivenumbers;
-        this.foodtype = foodtype;
+        this.self = self;
     }
 
     private String uid;
 
-    private String pricebed;
-
     private String id;
-
-    private String price;
-
-    private String priceguest;
 
     private String name;
 
-    private Self self;
+    private String price;
+
+    private String pricebed;
+
+    private String priceguest;
+
+    private String foodtype;
 
     private String validOnDate;
 
     private String additivenumbers;
 
-    private String foodtype;
+    private Self self;
 
+
+
+    // UID  getter & setter
     public String getUid ()
     {
         return uid;
@@ -46,16 +49,9 @@ public class Meal
         this.uid = uid;
     }
 
-    public String getPricebed ()
-    {
-        return pricebed;
-    }
 
-    public void setPricebed (String pricebed)
-    {
-        this.pricebed = pricebed;
-    }
 
+    // ID  getter & setter
     public String getId ()
     {
         return id;
@@ -66,26 +62,9 @@ public class Meal
         this.id = id;
     }
 
-    public String getPrice ()
-    {
-        return price;
-    }
 
-    public void setPrice (String price)
-    {
-        this.price = price;
-    }
 
-    public String getPriceguest ()
-    {
-        return priceguest;
-    }
-
-    public void setPriceguest (String priceguest)
-    {
-        this.priceguest = priceguest;
-    }
-
+    // NAME getter & setter
     public String getName ()
     {
         return name;
@@ -96,36 +75,48 @@ public class Meal
         this.name = name;
     }
 
-    public Self getSelf ()
+
+
+    // PRICE  getter & setter
+    public String getPrice ()
     {
-        return self;
+        return price;
     }
 
-    public void setSelf (Self self)
+    public void setPrice (String price)
     {
-        this.self = self;
+        this.price = price;
     }
 
-    public String getValidOnDate ()
+
+
+    // PRICE_BED getter & setter
+    public String getPricebed ()
     {
-        return validOnDate;
+        return pricebed;
     }
 
-    public void setValidOnDate (String validOnDate)
+    public void setPricebed (String pricebed)
     {
-        this.validOnDate = validOnDate;
+        this.pricebed = pricebed;
     }
 
-    public String getAdditivenumbers ()
+
+
+    // PRICE_GUEST getter & setter
+    public String getPriceguest ()
     {
-        return additivenumbers;
+        return priceguest;
     }
 
-    public void setAdditivenumbers (String additivenumbers)
+    public void setPriceguest (String priceguest)
     {
-        this.additivenumbers = additivenumbers;
+        this.priceguest = priceguest;
     }
 
+
+
+    // FOOD_TYPE getter & setter
     public String getFoodtype ()
     {
         return foodtype;
@@ -136,9 +127,51 @@ public class Meal
         this.foodtype = foodtype;
     }
 
+
+
+
+    // VALID_ON_DATE getter & setter
+    public String getValidOnDate ()
+    {
+        return validOnDate;
+    }
+
+    public void setValidOnDate (String validOnDate)
+    {
+        this.validOnDate = validOnDate;
+    }
+
+
+
+    // ADDITIVE_NUMBERS getter & setter
+    public String getAdditivenumbers ()
+    {
+        return additivenumbers;
+    }
+
+    public void setAdditivenumbers (String additivenumbers)
+    {
+        this.additivenumbers = additivenumbers;
+    }
+
+
+
+    // SELF getter & setter
+    public Self getSelf ()
+    {
+        return self;
+    }
+
+    public void setSelf (Self self)
+    {
+        this.self = self;
+    }
+
+
+
     @Override
     public String toString()
     {
-        return "ClassPojo [uid = "+uid+", pricebed = "+pricebed+", id = "+id+", price = "+price+", priceguest = "+priceguest+", name = "+name+", self = "+self+", validOnDate = "+validOnDate+", additivenumbers = "+additivenumbers+", foodtype = "+foodtype+"]";
+        return "Meal [uid = "+uid+", pricebed = "+pricebed+", id = "+id+", price = "+price+", priceguest = "+priceguest+", name = "+name+", self = "+self+", validOnDate = "+validOnDate+", additivenumbers = "+additivenumbers+", foodtype = "+foodtype+"]";
     }
 }

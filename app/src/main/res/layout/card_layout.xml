@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res−auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    card_view:cardElevation="6dp"
+    card_view:cardCornerRadius="4dp">
+
+    <LinearLayout
+        android:id="@+id/card_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="name"
+            android:paddingRight="40dp"
+            android:textSize="24sp"/>
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="prof"
+            android:paddingRight="10dp"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/price_bed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="guest"
+            android:paddingRight="10dp"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/price_guest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="guest"
+            android:paddingRight="10dp"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -2,14 +2,24 @@ package com.mobileapplikationenfhws.speiseplan;
 
 public class Mensa
 {
+
+    public Mensa(String id, String name, MealUrl mealUrl, Self self) {
+        this.id = id;
+        this.name = name;
+        this.mealUrl = mealUrl;
+        this.self = self;
+    }
+
     private String id;
 
     private String name;
 
-    private Self self;
-
     private MealUrl mealUrl;
 
+    private Self self;
+
+
+    // ID  getter & setter
     public String getId ()
     {
         return id;
@@ -20,6 +30,8 @@ public class Mensa
         this.id = id;
     }
 
+
+    // NAME  getter & setter
     public String getName ()
     {
         return name;
@@ -30,6 +42,23 @@ public class Mensa
         this.name = name;
     }
 
+
+
+    // MEAL_URL  getter & setter
+    public MealUrl getMealUrl ()
+    {
+        return mealUrl;
+    }
+
+    public void setMealUrl (MealUrl mealUrl)
+    {
+        this.mealUrl = mealUrl;
+    }
+
+
+
+
+    // SELF  getter & setter
     public Self getSelf ()
     {
         return self;
@@ -40,15 +69,7 @@ public class Mensa
         this.self = self;
     }
 
-    public MealUrl getMealUrl ()
-    {
-        return mealUrl;
-    }
 
-    public void setMealUrl (MealUrl mealUrl)
-    {
-        this.mealUrl = mealUrl;
-    }
 
     @Override
     public String toString()

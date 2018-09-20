@@ -24,11 +24,11 @@ public class MealdetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         //String mensa = fetchIntentData(intent,"foodData_mensa");
         String name = fetchIntentData(intent, "foodData_name");
-        String type = fetchIntentData(intent,"foodData_type");
-        String date = fetchIntentData(intent,"foodData_date");
-        String price = fetchIntentData(intent,"foodData_price");
-        String price_be = fetchIntentData(intent,"foodData_price_bed");
-        String price_gu = fetchIntentData(intent,"foodData_price_guest");
+        String type = fetchIntentData(intent, "foodData_type");
+        String date = fetchIntentData(intent, "foodData_date");
+        String price = fetchIntentData(intent, "foodData_price");
+        String price_be = fetchIntentData(intent, "foodData_price_bed");
+        String price_gu = fetchIntentData(intent, "foodData_price_guest");
 
 
         //TextView mensa_view = findViewById(R.id.mensa_detail);
@@ -54,8 +54,6 @@ public class MealdetailActivity extends AppCompatActivity {
             type_view.setImageResource(R.drawable.veget_100);
         } else if (type.toLowerCase().equals("g")) {
             type_view.setImageResource(R.drawable.chicken_100);
-        } else if (type.toLowerCase().equals("a")) {
-            type_view.setImageResource(R.drawable.alcohol_100);
         } else if (type.toLowerCase().equals("l")) {
             type_view.setImageResource(R.drawable.sheep_100);
         } else if (type.toLowerCase().equals("k")) {
@@ -68,10 +66,13 @@ public class MealdetailActivity extends AppCompatActivity {
             type_view.setImageResource(R.drawable.deer_100);
         } else if (type.toLowerCase().equals("vo")) {
             type_view.setImageResource(R.drawable.ham_90);
-        }
-
-
+        } //else if (type.toLowerCase().equals("a")) {
+        //type_view.setImageResource(R.drawable.alcohol_100);
+        //}
     }
+
+
+
 
     private String fetchIntentData(Intent intent, String key) {
         String data = intent.getExtras().getString(key);

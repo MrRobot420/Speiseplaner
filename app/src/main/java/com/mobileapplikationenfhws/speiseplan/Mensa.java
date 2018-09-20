@@ -3,6 +3,10 @@ package com.mobileapplikationenfhws.speiseplan;
 public class Mensa
 {
 
+    public Mensa() {
+
+    }
+
     public Mensa(String id, String name, MealUrl mealUrl, Self self) {
         this.id = id;
         this.name = name;

@@ -2,6 +2,17 @@ package com.mobileapplikationenfhws.speiseplan;
 
 public class Self
 {
+
+    public Self() {
+
+    }
+
+    public Self(String rel, String type, String href) {
+        this.rel = rel;
+        this.type = type;
+        this.href = href;
+    }
+
     private String rel;
 
     private String type;

@@ -12,13 +12,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import com.mobileapplikationen.speiseplan.meallist.MeallistActivity;
 
 public class MainActivity extends AppCompatActivity {
     CheckBox cb_fisch, cb_fleischlos, cb_alk, cb_geflu, cb_lamm, cb_rind, cb_schwein,
             cb_vegan , cb_vorder, cb_wild, cb_kalb;
+    CheckBox [] all_cb;
     Spinner sp_mensa, sp_datum;
     String  key_fisch = "FISCH", key_fleischlos = "FLEISCHLOS", key_alk = "ALK", key_geflu = "GEFLU",
             key_lamm = "LAMM", key_rind = "RIND", key_schwein = "SCHWEIN", key_vegan = "VEGAN",
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
             key_mensa = "MENSA", key_datum = "DATUM";
     String mensen[] = {"Mensateria", "Hubland-Mensa", "Studentenhaus"};
     String datum[] = {"20-09-2018", "21-09-2018", "23-09-2018"};
+    Switch switch_all;
     ArrayAdapter<String> adapter_mensa;
     ArrayAdapter<String> adapter_datum;
     private static final String speiseplaner_settings = "SPEISEPLANER_SETTINGS";
@@ -36,9 +40,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         // get UserInterface Elements
         getUiElements();
+
+        // CheckBox Array
+        all_cb = new CheckBox[] {cb_fisch, cb_alk, cb_fleischlos, cb_geflu, cb_kalb, cb_lamm, cb_rind, cb_schwein,
+                cb_vegan, cb_vorder, cb_wild};
 
         // Spinner
         adapter_mensa= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mensen);
@@ -51,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Load SPEISEPLAN_SETTINGS
         loadSettings();
+        //
+        setSwitch();
+        setCheckBoxes();
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -90,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
     public void getUiElements(){
         sp_mensa = (Spinner) findViewById(R.id.spin_mensa);
         sp_datum = (Spinner) findViewById(R.id.spin_datum);
+        switch_all = findViewById(R.id.switch_all);
         cb_fisch = (CheckBox) findViewById(R.id.check_fisch);
         cb_fleischlos = (CheckBox) findViewById(R.id.check_fleischlos);
         cb_alk = (CheckBox) findViewById(R.id.check_alk);
@@ -140,5 +151,54 @@ public class MainActivity extends AppCompatActivity {
         pref_save.putBoolean(key_wild, cb_wild.isChecked());
         pref_save.putBoolean(key_kalb, cb_kalb.isChecked());
         pref_save.apply();
+    }
+    public void setSwitch(){
+        switch_all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean is_checked) {
+                if (is_checked == true) {
+                    cb_fisch.setChecked(true);
+                    cb_fleischlos.setChecked(true);
+                    cb_geflu.setChecked(true);
+                    cb_alk.setChecked(true);
+                    cb_kalb.setChecked(true);
+                    cb_lamm.setChecked(true);
+                    cb_rind.setChecked(true);
+                    cb_schwein.setChecked(true);
+                    cb_vegan.setChecked(true);
+                    cb_vorder.setChecked(true);
+                    cb_wild.setChecked(true);
+                }
+                if(is_checked == false){
+                    if(cb_fisch.isChecked() && cb_fleischlos.isChecked() && cb_geflu.isChecked() &&
+                            cb_alk.isChecked() && cb_kalb.isChecked() && cb_lamm.isChecked() &&
+                            cb_rind.isChecked() && cb_schwein.isChecked() && cb_vorder.isChecked() &&
+                            cb_vegan.isChecked() && cb_wild.isChecked()) {
+                        for (int i = 0; i< all_cb.length; i++) {
+                            all_cb[i].setChecked(false);
+                        }
+
+                    }
+
+                }
+            }
+
+        });
+
+    }
+    public void setCheckBoxes(){
+        for (int i = 0; i< all_cb.length; i++) {
+            all_cb[i].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean is_checked) {
+                    if (is_checked == true){
+                    }
+                    if (is_checked == false) {
+                        switch_all.setChecked(false);
+                    }
+                }
+            });
+        }
+
     }
 }

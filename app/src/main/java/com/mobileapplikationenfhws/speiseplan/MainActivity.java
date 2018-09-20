@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
     public void saveSettings(){
         SharedPreferences.Editor pref_save = getSharedPreferences(speiseplaner_settings, MODE_PRIVATE).edit();
         // save Spinner
-        //pref_save.putString(key_mensa, sp_mensa.getSelectedItem().toString());
+        pref_save.putString(key_mensa, sp_mensa.getSelectedItem().toString());
         pref_save.putString(key_datum, sp_datum.getSelectedItem().toString());
         // save CheckBoxes
         pref_save.putBoolean(key_fisch, cb_fisch.isChecked());

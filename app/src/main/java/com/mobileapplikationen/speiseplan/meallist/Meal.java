@@ -3,6 +3,10 @@ package com.mobileapplikationen.speiseplan.meallist;
 public class Meal
 {
 
+    public Meal() {
+
+    }
+
     public Meal(String uid, String id, String name, String price, String pricebed, String priceguest, String foodtype, String validOnDate, String additivenumbers, Self self) {
         this.uid = uid;
         this.id = id;

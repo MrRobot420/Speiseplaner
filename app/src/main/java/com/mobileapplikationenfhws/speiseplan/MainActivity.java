@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     //String mensen[];
     String datum[] = {"20-09-2018", "21-09-2018", "23-09-2018"};
     Switch switch_all;
-    ArrayAdapter<String> adapter_mensa;
+    ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter_datum;
     private static final String speiseplaner_settings = "SPEISEPLANER_SETTINGS";
 
@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         sp_datum.setAdapter(adapter_datum);
 
         // Load SPEISEPLAN_SETTINGS
+        // TODO: eventuell NULL abfangen!!!!
         loadSettings();
         //
         setSwitch();
@@ -127,15 +128,15 @@ public class MainActivity extends AppCompatActivity {
             List<Mensa> mensas = genson.deserialize(s, new GenericType<List<Mensa>>() {
             });
 
-            Spinner dropdown = findViewById(R.id.spin_mensa);
+            sp_mensa = findViewById(R.id.spin_mensa);
             List<String> dropdown_items = new ArrayList<String>();
 
             for (int i = 0; i < mensas.size() - 1; i++) {
                 dropdown_items.add(mensas.get(i).getName());
             }
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, dropdown_items);
-            dropdown.setAdapter(adapter);
+            adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, dropdown_items);
+            sp_mensa.setAdapter(adapter);
         }
     }
 
@@ -172,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
     public void loadSettings(){
         // load Spinner
         SharedPreferences pref_load = getSharedPreferences(MainActivity.speiseplaner_settings, MODE_PRIVATE);
-        //int sp_mensa_pos = adapter_mensa.getPosition(pref_load.getString(key_mensa, ""));
+        //int sp_mensa_pos = adapter.getPosition(pref_load.getString(key_mensa, ""));
         //sp_mensa.setSelection(sp_mensa_pos);
         int sp_datum_pos = adapter_datum.getPosition(pref_load.getString(key_datum, ""));
         sp_datum.setSelection(sp_datum_pos);

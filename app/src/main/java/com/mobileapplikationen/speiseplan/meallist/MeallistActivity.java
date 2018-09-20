@@ -20,6 +20,9 @@ public class MeallistActivity extends AppCompatActivity implements OnMealsClickL
     ArrayList<Meal> foodData = DataGen.generate();
     int pos;
 
+    String mensa_id = null;
+    String mensa_name = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +31,9 @@ public class MeallistActivity extends AppCompatActivity implements OnMealsClickL
         setSupportActionBar(toolbar);
 
 
-
+        Intent intent = getIntent();
+        mensa_id = intent.getExtras().getString("mensa_id");
+        mensa_name = intent.getExtras().getString("mensa_name");
 
         /*
         for (int i = 0; i < 10; i++) {
@@ -61,6 +66,7 @@ public class MeallistActivity extends AppCompatActivity implements OnMealsClickL
         intent.putExtra("foodData_name", meal.getName());
         intent.putExtra("foodData_type", meal.getFoodtype());
         // TODO implement mensa-name!!
+        intent.putExtra("mensa_name", mensa_name);
         intent.putExtra("foodData_date", meal.getValidOnDate());
         intent.putExtra("foodData_price", meal.getPrice());
         intent.putExtra("foodData_price_bed", meal.getPricebed());

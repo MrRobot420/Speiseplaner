@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter_datum;
     private static final String speiseplaner_settings = "SPEISEPLANER_SETTINGS";
 
+    List<Mensa> mensas;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,9 +90,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                String mensaId = null;
+                int index = 0;
+                String selectedMensaName = sp_mensa.getSelectedItem().toString();
+
+                for (int i = 0; i < mensas.size() -1; i++) {
+                    if (selectedMensaName.equals(mensas.get(i).getName())) {
+                        mensaId = mensas.get(i).getId();
+                        index = i;
+                    }
+                }
+
+
                 // Store Settings
                 saveSettings();
                 Intent intent = new Intent(MainActivity.this, MeallistActivity.class);
+                intent.putExtra("mensa_id", mensaId);
+                intent.putExtra("mensa_name", mensas.get(index).getName());
                 startActivity(intent);
             }
         });
@@ -125,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
             Genson genson = new Genson();
             //
             //System.out.println(s);
-            List<Mensa> mensas = genson.deserialize(s, new GenericType<List<Mensa>>() {
+            mensas = genson.deserialize(s, new GenericType<List<Mensa>>() {
             });
 
             sp_mensa = findViewById(R.id.spin_mensa);
@@ -155,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void getUiElements(){
-        //sp_mensa = (Spinner) findViewById(R.id.spin_mensa);
+        sp_mensa = findViewById(R.id.spin_mensa);
         sp_datum = findViewById(R.id.spin_datum);
         switch_all = findViewById(R.id.switch_all);
         cb_fisch = findViewById(R.id.check_fisch);
@@ -190,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
         cb_wild.setChecked(pref_load.getBoolean(key_wild, false));
         cb_kalb.setChecked(pref_load.getBoolean(key_kalb, false));
     }
+
     public void saveSettings(){
         SharedPreferences.Editor pref_save = getSharedPreferences(speiseplaner_settings, MODE_PRIVATE).edit();
         // save Spinner
@@ -209,6 +227,7 @@ public class MainActivity extends AppCompatActivity {
         pref_save.putBoolean(key_kalb, cb_kalb.isChecked());
         pref_save.apply();
     }
+
     public void setSwitch(){
         switch_all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

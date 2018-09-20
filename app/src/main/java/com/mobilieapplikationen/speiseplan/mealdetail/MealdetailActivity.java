@@ -22,7 +22,7 @@ public class MealdetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
-        //String mensa = fetchIntentData(intent,"foodData_mensa");
+        String mensa = fetchIntentData(intent,"mensa_name");
         String name = fetchIntentData(intent, "foodData_name");
         String type = fetchIntentData(intent, "foodData_type");
         String date = fetchIntentData(intent, "foodData_date");
@@ -31,7 +31,7 @@ public class MealdetailActivity extends AppCompatActivity {
         String price_gu = fetchIntentData(intent, "foodData_price_guest");
 
 
-        //TextView mensa_view = findViewById(R.id.mensa_detail);
+        TextView mensa_view = findViewById(R.id.mensa_detail);
         TextView name_view = findViewById(R.id.name_detail);
         ImageView type_view = findViewById(R.id.type_detail);
         TextView date_view = findViewById(R.id.date_detail);
@@ -39,12 +39,13 @@ public class MealdetailActivity extends AppCompatActivity {
         TextView price_b_view = findViewById(R.id.price_bed_detail);
         TextView price_g_view = findViewById(R.id.price_guest_detail);
 
-        //mensa_view.setText(mensa);
+        mensa_view.setText(mensa);
         name_view.setText(name);
         date_view.setText(date);
         price_view.setText(price);
         price_b_view.setText(price_be);
         price_g_view.setText(price_gu);
+        
 
         if (type.toLowerCase().equals("r")) {
             type_view.setImageResource(R.drawable.cow_100);
@@ -66,9 +67,9 @@ public class MealdetailActivity extends AppCompatActivity {
             type_view.setImageResource(R.drawable.deer_100);
         } else if (type.toLowerCase().equals("vo")) {
             type_view.setImageResource(R.drawable.ham_90);
-        } //else if (type.toLowerCase().equals("a")) {
-        //type_view.setImageResource(R.drawable.alcohol_100);
-        //}
+        } else if (type.toLowerCase().equals("a")) {
+        type_view.setImageResource(R.drawable.alcohol_100);
+        }
     }
 
 

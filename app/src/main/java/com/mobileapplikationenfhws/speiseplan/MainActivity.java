@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     Switch switch_all;
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter_datum;
-    private static final String speiseplaner_settings = "SPEISEPLANER_SETTINGS";
+    public static final String speiseplaner_settings = "SPEISEPLANER_SETTINGS";
 
     List<Mensa> mensas;
 
@@ -111,9 +111,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
+                // Date mapping
                 String date = sp_datum.getSelectedItem().toString();
-
                 String ID = date_map.get(date);
+
 
 
 
@@ -139,6 +140,13 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("mensa_id", mensaId);
                 intent.putExtra("mensa_name", mensas.get(index).getName());
                 intent.putExtra("day_id", ID);
+
+
+
+
+
+
+
                 startActivity(intent);
             }
         });

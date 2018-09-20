@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="name"
-            android:paddingRight="40dp"
+            android:paddingRight="5dp"
             android:textSize="24sp"/>
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="prof"
-            android:paddingRight="10dp"
+            android:paddingRight="5dp"
             android:textSize="18sp"/>
 
         <TextView
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="guest"
-            android:paddingRight="10dp"
+            android:paddingRight="5dp"
             android:textSize="18sp"/>
 
         <TextView
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="guest"
-            android:paddingRight="10dp"
+            android:paddingRight="5dp"
             android:textSize="18sp"/>
 
     </LinearLayout>

@@ -42,6 +42,7 @@ public class MeallistActivity extends AppCompatActivity implements OnMealsClickL
 
     String mensa_id = null;
     String mensa_name = null;
+    String day_id = null;
     String URL_meals = "https://apistaging.fiw.fhws.de/fiwis2/api/mensas/";
 
     @Override
@@ -55,8 +56,10 @@ public class MeallistActivity extends AppCompatActivity implements OnMealsClickL
         Intent intent = getIntent();
         mensa_id = intent.getExtras().getString("mensa_id");
         mensa_name = intent.getExtras().getString("mensa_name");
+        day_id = intent.getExtras().getString("day_id");
 
-        URL_meals += (mensa_id + "/meals?day=4");
+        URL_meals += (mensa_id + "/meals?day=" + day_id);
+        System.out.println(URL_meals);
 
 
 
@@ -68,7 +71,7 @@ public class MeallistActivity extends AppCompatActivity implements OnMealsClickL
 
         // Fetch Meal-API-Data here:    (T_ASYNC)
         new LoadFromNetwork().execute();
-        System.out.println();
+        //System.out.println();
 
         /*// Init DATA
         RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
@@ -106,9 +109,10 @@ public class MeallistActivity extends AppCompatActivity implements OnMealsClickL
             super.onPostExecute(s);
             Genson genson = new Genson();
             //
-            System.out.println(s);
+            //System.out.println(s);
             meals = genson.deserialize(s, new GenericType<List<Meal>>() {
             });
+            System.out.println(meals);
 
             // Init DATA
             RecyclerView mRecyclerView = findViewById(R.id.recyclerView);

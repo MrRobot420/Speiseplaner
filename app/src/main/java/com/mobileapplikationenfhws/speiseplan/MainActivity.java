@@ -30,7 +30,10 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     CheckBox cb_fisch, cb_fleischlos, cb_alk, cb_geflu, cb_lamm, cb_rind, cb_schwein,
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     //String mensen[];
     String datum[];
     String dayofweek;
+    Map<String, String> date_map = new HashMap<String, String>();
     Switch switch_all;
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter_datum;
@@ -69,8 +73,11 @@ public class MainActivity extends AppCompatActivity {
             Integer dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
             dayofweek = dayOfWeek.toString();
             String next = sdf.format(cal.getTime());
+            date_map.put(next, dayofweek);
             datum[i] = next;
         }
+
+
 
         new LoadFromNetwork().execute();
 
@@ -103,6 +110,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
+                String date = sp_datum.getSelectedItem().toString();
+
+                String ID = date_map.get(date);
+
+
+
+                //Date selected_date = new SimpleDateFormat("dd.MM.yyyy").parse(date);
+
+
+
                 String mensaId = null;
                 int index = 0;
                 String selectedMensaName = sp_mensa.getSelectedItem().toString();
@@ -120,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, MeallistActivity.class);
                 intent.putExtra("mensa_id", mensaId);
                 intent.putExtra("mensa_name", mensas.get(index).getName());
+                intent.putExtra("day_id", ID);
                 startActivity(intent);
             }
         });

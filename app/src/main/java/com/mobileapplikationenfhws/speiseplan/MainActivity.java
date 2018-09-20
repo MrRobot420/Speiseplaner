@@ -27,7 +27,9 @@ import org.apache.commons.io.IOUtils;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             key_mensa = "MENSA", key_datum = "DATUM";
     //String mensen[] = {"Mensateria", "Hubland-Mensa", "Studentenhaus"};
     //String mensen[];
-    String datum[] = {"20-09-2018", "21-09-2018", "23-09-2018"};
+    String datum[];
     Switch switch_all;
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter_datum;
@@ -57,7 +59,15 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        //Aktuelles Datum
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        datum = new String[6];
+        for (int i = 0; i <= 5; i++){
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DATE,i);
+            String next = sdf.format(cal.getTime());
+            datum[i] = next;
+        }
 
         new LoadFromNetwork().execute();
 

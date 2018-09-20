@@ -3,6 +3,9 @@ package com.mobileapplikationen.speiseplan.meallist;
 public class Self
 {
 
+    public Self() {
+    }
+
     public Self(String rel, String type, String href) {
         this.rel = rel;
         this.type = type;

@@ -18,7 +18,7 @@ import java.util.List;
 
 public class MeallistViewAdapter extends RecyclerView.Adapter<MeallistViewAdapter.MyViewHolder>{
 
-    private final List<Meal> foodData;
+    private List<Meal> foodData;
 
     private final OnMealsClickListener onMealsClickListener;
 
@@ -74,17 +74,12 @@ public class MeallistViewAdapter extends RecyclerView.Adapter<MeallistViewAdapte
             String guest_price;
             String name = meal.getName();
 
-            // Differentiates between TITLE and DATA -> Different FORMATTING!
-            if (name.equals("GERICHT")) {
-                stud_price = (meal.getPrice());
-                bedi_price = (meal.getPricebed());
-                guest_price = (meal.getPriceguest());
-            } else {
-                stud_price = (meal.getPrice() + "€ ");
-                bedi_price = (meal.getPricebed() + "€ ");
-                guest_price = (meal.getPriceguest() + "€");
-                this.name.setText(meal.getName() + " ");
-            }
+
+            stud_price = (meal.getPrice() + "€ ");
+            bedi_price = (meal.getPricebed() + "€ ");
+            guest_price = (meal.getPriceguest() + "€");
+            this.name.setText(meal.getName());
+
 
 
             this.name.setText(name);

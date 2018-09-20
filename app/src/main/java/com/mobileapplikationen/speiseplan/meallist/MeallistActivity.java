@@ -55,16 +55,16 @@ public class MeallistActivity extends AppCompatActivity implements OnMealsClickL
 
 
     @Override
-    public void onMealClick(int position) {
+    public void onMealClick(Meal meal) {
         Intent intent = new Intent(MeallistActivity.this, MealdetailActivity.class);
 
-        intent.putExtra("foodData_name", foodData.get(pos).getName());
-        intent.putExtra("foodData_type", foodData.get(pos).getFoodtype());
+        intent.putExtra("foodData_name", meal.getName());
+        intent.putExtra("foodData_type", meal.getFoodtype());
         // TODO implement mensa-name!!
-        intent.putExtra("foodData_date", foodData.get(pos).getValidOnDate());
-        intent.putExtra("foodData_price", foodData.get(pos).getPrice());
-        intent.putExtra("foodData_price_bed", foodData.get(pos).getPricebed());
-        intent.putExtra("foodData_price_guest", foodData.get(pos).getPriceguest());
+        intent.putExtra("foodData_date", meal.getValidOnDate());
+        intent.putExtra("foodData_price", meal.getPrice());
+        intent.putExtra("foodData_price_bed", meal.getPricebed());
+        intent.putExtra("foodData_price_guest", meal.getPriceguest());
         startActivity(intent);
     }
 }

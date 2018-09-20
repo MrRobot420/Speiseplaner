@@ -2,11 +2,13 @@ package com.mobileapplikationenfhws.speiseplan;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +19,16 @@ import android.widget.Spinner;
 import android.widget.Switch;
 
 import com.mobileapplikationen.speiseplan.meallist.MeallistActivity;
+import com.owlike.genson.GenericType;
+import com.owlike.genson.Genson;
+
+import org.apache.commons.io.IOUtils;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     CheckBox cb_fisch, cb_fleischlos, cb_alk, cb_geflu, cb_lamm, cb_rind, cb_schwein,
@@ -27,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
             key_lamm = "LAMM", key_rind = "RIND", key_schwein = "SCHWEIN", key_vegan = "VEGAN",
             key_vorder = "VORDER", key_kalb = "KALB", key_wild = "WILD",
             key_mensa = "MENSA", key_datum = "DATUM";
-    String mensen[] = {"Mensateria", "Hubland-Mensa", "Studentenhaus"};
+    //String mensen[] = {"Mensateria", "Hubland-Mensa", "Studentenhaus"};
+    //String mensen[];
     String datum[] = {"20-09-2018", "21-09-2018", "23-09-2018"};
     Switch switch_all;
     ArrayAdapter<String> adapter_mensa;
@@ -40,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
+        new LoadFromNetwork().execute();
+
         // get UserInterface Elements
         getUiElements();
 
@@ -48,9 +66,9 @@ public class MainActivity extends AppCompatActivity {
                 cb_vegan, cb_vorder, cb_wild};
 
         // Spinner
-        adapter_mensa= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mensen);
-        adapter_mensa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp_mensa.setAdapter(adapter_mensa);
+        //adapter_mensa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mensen);
+        //adapter_mensa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //sp_mensa.setAdapter(adapter_mensa);
 
         adapter_datum = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, datum);
         adapter_datum.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -83,7 +101,45 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
+    class LoadFromNetwork extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... p) {
+            HttpURLConnection urlConnection = null;
+            try {
+                URL url = new URL("https://apistaging.fiw.fhws.de/fiwis2/api/mensas");
+                urlConnection = (HttpURLConnection) url.openConnection();
+                InputStream is = urlConnection.getInputStream();
+                return IOUtils.toString(is);
+            } catch (Exception ex) {
+                Log.e("TAG", "" + ex.getMessage());
+            } finally {
+                urlConnection.disconnect();
+            }
+            return "Error";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Genson genson = new Genson();
+            //
+            //System.out.println(s);
+            List<Mensa> mensas = genson.deserialize(s, new GenericType<List<Mensa>>() {
+            });
+
+            Spinner dropdown = findViewById(R.id.spin_mensa);
+            List<String> dropdown_items = new ArrayList<String>();
+
+            for (int i = 0; i < mensas.size() - 1; i++) {
+                dropdown_items.add(mensas.get(i).getName());
+            }
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, dropdown_items);
+            dropdown.setAdapter(adapter);
+        }
+    }
+
+
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -98,26 +154,26 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void getUiElements(){
-        sp_mensa = (Spinner) findViewById(R.id.spin_mensa);
-        sp_datum = (Spinner) findViewById(R.id.spin_datum);
+        //sp_mensa = (Spinner) findViewById(R.id.spin_mensa);
+        sp_datum = findViewById(R.id.spin_datum);
         switch_all = findViewById(R.id.switch_all);
-        cb_fisch = (CheckBox) findViewById(R.id.check_fisch);
-        cb_fleischlos = (CheckBox) findViewById(R.id.check_fleischlos);
-        cb_alk = (CheckBox) findViewById(R.id.check_alk);
-        cb_geflu = (CheckBox) findViewById(R.id.check_geflu);
-        cb_lamm = (CheckBox) findViewById(R.id.check_lamm);
-        cb_rind = (CheckBox) findViewById(R.id.check_rind);
-        cb_schwein = (CheckBox) findViewById(R.id.check_schwein);
-        cb_vegan = (CheckBox) findViewById(R.id.check_vegan);
-        cb_vorder = (CheckBox) findViewById(R.id.check_vorder);
-        cb_wild = (CheckBox) findViewById(R.id.check_wild);
-        cb_kalb = (CheckBox) findViewById(R.id.check_kalb);
+        cb_fisch = findViewById(R.id.check_fisch);
+        cb_fleischlos = findViewById(R.id.check_fleischlos);
+        cb_alk = findViewById(R.id.check_alk);
+        cb_geflu = findViewById(R.id.check_geflu);
+        cb_lamm = findViewById(R.id.check_lamm);
+        cb_rind = findViewById(R.id.check_rind);
+        cb_schwein = findViewById(R.id.check_schwein);
+        cb_vegan = findViewById(R.id.check_vegan);
+        cb_vorder = findViewById(R.id.check_vorder);
+        cb_wild = findViewById(R.id.check_wild);
+        cb_kalb = findViewById(R.id.check_kalb);
     }
     public void loadSettings(){
         // load Spinner
         SharedPreferences pref_load = getSharedPreferences(MainActivity.speiseplaner_settings, MODE_PRIVATE);
-        int sp_mensa_pos = adapter_mensa.getPosition(pref_load.getString(key_mensa, ""));
-        sp_mensa.setSelection(sp_mensa_pos);
+        //int sp_mensa_pos = adapter_mensa.getPosition(pref_load.getString(key_mensa, ""));
+        //sp_mensa.setSelection(sp_mensa_pos);
         int sp_datum_pos = adapter_datum.getPosition(pref_load.getString(key_datum, ""));
         sp_datum.setSelection(sp_datum_pos);
         // load CheckBoxes
@@ -136,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
     public void saveSettings(){
         SharedPreferences.Editor pref_save = getSharedPreferences(speiseplaner_settings, MODE_PRIVATE).edit();
         // save Spinner
-        pref_save.putString(key_mensa, sp_mensa.getSelectedItem().toString());
+        //pref_save.putString(key_mensa, sp_mensa.getSelectedItem().toString());
         pref_save.putString(key_datum, sp_datum.getSelectedItem().toString());
         // save CheckBoxes
         pref_save.putBoolean(key_fisch, cb_fisch.isChecked());

@@ -17,7 +17,7 @@ public class DataGen {
         foodData.add(new Meal("7", "7", "Pizza Tonno", "4.05", "5.25", "6,15", "F", "19-09-2018", "Z1", null));
         foodData.add(new Meal("8", "8", "Spaghetti", "2.05", "3.25", "4,15", "R", "19-09-2018", "A4", null));
         foodData.add(new Meal("9", "9", "Currywurst", "2.55", "3.65", "4,35", "S", "19-09-2018", "Z2", null));
-        foodData.add(new Meal("10", "10", "Forelle", "4.05", "5.85", "7,15", "G", "19-09-2018", "Z3", null));
+        foodData.add(new Meal("10", "10", "Forelle", "4.05", "5.85", "7,15", "F", "19-09-2018", "Z3", null));
         return foodData;
     }
 }

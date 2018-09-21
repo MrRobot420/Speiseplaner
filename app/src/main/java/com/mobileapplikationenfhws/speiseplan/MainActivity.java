@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     String  key_fisch = "FISCH", key_fleischlos = "FLEISCHLOS", key_alk = "ALK", key_geflu = "GEFLU",
             key_lamm = "LAMM", key_rind = "RIND", key_schwein = "SCHWEIN", key_vegan = "VEGAN",
             key_vorder = "VORDER", key_kalb = "KALB", key_wild = "WILD",
-            key_mensa = "MENSA", key_datum = "DATUM";
+            key_mensa = "MENSA", key_datum = "DATUM", key_alle = "ALLE";
     //String mensen[] = {"Mensateria", "Hubland-Mensa", "Studentenhaus"};
     //String mensen[];
     String datum[];
@@ -227,6 +227,8 @@ public class MainActivity extends AppCompatActivity {
         //sp_mensa.setSelection(sp_mensa_pos);
         //int sp_datum_pos = adapter_datum.getPosition(pref_load.getString(key_datum, ""));
         //sp_datum.setSelection(sp_datum_pos);
+        // load switch
+        switch_all.setChecked(pref_load.getBoolean(key_alle, false));
         // load CheckBoxes
         cb_fisch.setChecked(pref_load.getBoolean(key_fisch, false));
         cb_fleischlos.setChecked(pref_load.getBoolean(key_fleischlos, false));
@@ -243,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void saveSettings(){
         SharedPreferences.Editor pref_save = getSharedPreferences(speiseplaner_settings, MODE_PRIVATE).edit();
+        pref_save.putBoolean(key_alle, switch_all.isChecked());
         // save Spinner
         pref_save.putString(key_mensa, sp_mensa.getSelectedItem().toString());
         pref_save.putString(key_datum, sp_datum.getSelectedItem().toString());
@@ -300,10 +303,16 @@ public class MainActivity extends AppCompatActivity {
             all_cb[i].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean is_checked) {
-                    if (is_checked == true){
+                    if (is_checked == true) {
                     }
                     if (is_checked == false) {
                         switch_all.setChecked(false);
+                    }
+                    if (cb_fisch.isChecked() && cb_fleischlos.isChecked() && cb_geflu.isChecked() &&
+                            cb_alk.isChecked() && cb_kalb.isChecked() && cb_lamm.isChecked() &&
+                            cb_rind.isChecked() && cb_schwein.isChecked() && cb_vorder.isChecked() &&
+                            cb_vegan.isChecked() && cb_wild.isChecked()) {
+                        switch_all.setChecked(true);
                     }
                 }
             });

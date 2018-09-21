@@ -25,6 +25,8 @@ public class MealdetailActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        // Use data from previous activities:
         Intent intent = getIntent();
         String mensa = fetchIntentData(intent,"mensa_name");
         String name = fetchIntentData(intent, "foodData_name");
@@ -35,6 +37,7 @@ public class MealdetailActivity extends AppCompatActivity {
         String price_gu = fetchIntentData(intent, "foodData_price_guest");
 
 
+        // INIT UI - Elements
         TextView mensa_view = findViewById(R.id.mensa_detail);
         TextView name_view = findViewById(R.id.name_detail);
         ImageView type_view = findViewById(R.id.type_detail);
@@ -43,6 +46,7 @@ public class MealdetailActivity extends AppCompatActivity {
         TextView price_b_view = findViewById(R.id.price_bed_detail);
         TextView price_g_view = findViewById(R.id.price_guest_detail);
 
+        // Set TEXT of UI - Elements
         mensa_view.setText(mensa);
         name_view.setText(name);
         date_view.setText(cutString(date));
@@ -51,6 +55,7 @@ public class MealdetailActivity extends AppCompatActivity {
         price_g_view.setText(price_gu + "€");
 
 
+        // Handle IMAGE for food-type:
         if (type.toLowerCase().equals("r")) {
             type_view.setImageResource(R.drawable.cow_100);
         } else if (type.toLowerCase().equals("v")) {
@@ -72,18 +77,19 @@ public class MealdetailActivity extends AppCompatActivity {
         } else if (type.toLowerCase().equals("vo")) {
             type_view.setImageResource(R.drawable.ham_90);
         } else if (type.toLowerCase().equals("a")) {
-        type_view.setImageResource(R.drawable.alcohol_100);
+            type_view.setImageResource(R.drawable.alcohol_100);
         }
     }
 
 
-
-
+    // "Shortens" the intent .getExtras().getString(key) (?)
     private String fetchIntentData(Intent intent, String key) {
         String data = intent.getExtras().getString(key);
         return data;
     }
 
+
+    // CUTS OFF a Date at ...T... & transforms it into different (european) TIME FORMAT
     public String cutString(String date) {
         char[] array = date.toCharArray();
         String end_date = "";

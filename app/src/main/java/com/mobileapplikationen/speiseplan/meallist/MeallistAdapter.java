@@ -20,14 +20,14 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
-public class MeallistViewAdapter extends RecyclerView.Adapter<MeallistViewAdapter.MyViewHolder>{
+public class MeallistAdapter extends RecyclerView.Adapter<MeallistAdapter.MyViewHolder>{
 
     private List<Meal> foodData;
 
     private final OnMealsClickListener onMealsClickListener;
 
     // Constructor
-    public MeallistViewAdapter(List<Meal> foodData, final OnMealsClickListener onMealsClickListener ) {
+    public MeallistAdapter(List<Meal> foodData, final OnMealsClickListener onMealsClickListener ) {
         this.foodData = foodData;
         this.onMealsClickListener = onMealsClickListener;
     }
@@ -181,7 +181,7 @@ public class MeallistViewAdapter extends RecyclerView.Adapter<MeallistViewAdapte
 
             } else {
                 int pos = getAdapterPosition();
-                Meal meal = MeallistViewAdapter.this.foodData.get(pos);
+                Meal meal = MeallistAdapter.this.foodData.get(pos);
                 onMealsClickListener.onMealClick(meal);
             }
 

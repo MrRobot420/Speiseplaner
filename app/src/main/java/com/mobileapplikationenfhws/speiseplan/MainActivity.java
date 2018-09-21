@@ -36,20 +36,31 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+
+    // All checkboxes:
     CheckBox cb_fisch, cb_fleischlos, cb_alk, cb_geflu, cb_lamm, cb_rind, cb_schwein,
             cb_vegan , cb_vorder, cb_wild, cb_kalb;
+
+    // Checkbox-Array in order to save all checkboxes
     CheckBox [] all_cb;
+
+    // Check / Uncheck ALL checkboxes:
+    Switch switch_all;
+
+    // The two spinners in main menu
     Spinner sp_mensa, sp_datum;
     String  key_fisch = "FISCH", key_fleischlos = "FLEISCHLOS", key_alk = "ALK", key_geflu = "GEFLU",
             key_lamm = "LAMM", key_rind = "RIND", key_schwein = "SCHWEIN", key_vegan = "VEGAN",
             key_vorder = "VORDER", key_kalb = "KALB", key_wild = "WILD",
             key_mensa = "MENSA", key_datum = "DATUM", key_alle = "ALLE";
-    //String mensen[] = {"Mensateria", "Hubland-Mensa", "Studentenhaus"};
-    //String mensen[];
+
+
     String datum[];
     String dayofweek;
     Map<String, String> date_map = new HashMap<String, String>();
-    Switch switch_all;
+
+
+
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter_datum;
     public static final String speiseplaner_settings = "SPEISEPLANER_SETTINGS";
@@ -64,43 +75,31 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Aktuelles Datum
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-        datum = new String[7];
-        for (int i = 0; i <= 6; i++){
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DATE,i);
-            Integer dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-            dayofweek = dayOfWeek.toString();
-            String next = sdf.format(cal.getTime());
-            date_map.put(next, dayofweek);
-            datum[i] = next;
-        }
 
+        // Configures the Date-Dropdown Menu ( Dates are saved in dates[] ! )
+        setDateDropDown();
 
-
+        // Make API Call for available MENSEN :
         new LoadFromNetwork().execute();
 
-        // get UserInterface Elements
+
+        // Get UserInterface Elements (Link GUI Elements to inner-class elements)
         getUiElements();
 
-        // CheckBox Array
-        all_cb = new CheckBox[] {cb_fisch, cb_alk, cb_fleischlos, cb_geflu, cb_kalb, cb_lamm, cb_rind, cb_schwein,
-                cb_vegan, cb_vorder, cb_wild};
-
-        // Spinner
-        //adapter_mensa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mensen);
-        //adapter_mensa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //sp_mensa.setAdapter(adapter_mensa);
 
         adapter_datum = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, datum);
         adapter_datum.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_datum.setAdapter(adapter_datum);
 
-        // Load SPEISEPLAN_SETTINGS
-        // TODO: eventuell NULL abfangen!!!!
+
+
+        // Fill CheckBox Array with checkboxes:
+        all_cb = new CheckBox[] {cb_fisch, cb_alk, cb_fleischlos, cb_geflu, cb_kalb, cb_lamm, cb_rind, cb_schwein,
+                cb_vegan, cb_vorder, cb_wild};
+
+
+        // Load SPEISEPLAN_SETTINGS & set-up Settings
         loadSettings();
-        //
         setSwitch();
         setCheckBoxes();
 
@@ -109,38 +108,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Date mapping
-                String date = sp_datum.getSelectedItem().toString();
-                String ID = date_map.get(date);
-
-                //Date selected_date = new SimpleDateFormat("dd.MM.yyyy").parse(date);
-
-                String mensaId = null;
-                int index = 0;
-                String selectedMensaName = sp_mensa.getSelectedItem().toString();
-
-                for (int i = 0; i < mensas.size() -1; i++) {
-                    if (selectedMensaName.equals(mensas.get(i).getName())) {
-                        mensaId = mensas.get(i).getId();
-                        index = i;
-                    }
-                }
-
-
-                // Store Settings
-                saveSettings();
-                Intent intent = new Intent(MainActivity.this, MeallistActivity.class);
-                intent.putExtra("mensa_id", mensaId);
-                intent.putExtra("mensa_name", mensas.get(index).getName());
-                intent.putExtra("day_id", ID);
-
-
-
-
-
-
-
-                startActivity(intent);
+                changeActivityAndSaveSelectedBoxes();
             }
         });
     }
@@ -190,6 +158,35 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // FAB calls this method -> ALSO saves settings (if app crashes or is terminated)
+    private void changeActivityAndSaveSelectedBoxes() {
+        // Date mapping
+        String date = sp_datum.getSelectedItem().toString();
+        String ID = date_map.get(date);
+
+        String mensaId = null;
+        int index = 0;
+        String selectedMensaName = sp_mensa.getSelectedItem().toString();
+
+        for (int i = 0; i < mensas.size() -1; i++) {
+            if (selectedMensaName.equals(mensas.get(i).getName())) {
+                mensaId = mensas.get(i).getId();
+                index = i;
+            }
+        }
+
+
+        // Store Settings -> see above (Code below)
+        saveSettings();
+
+        // Transmit data to the next VIEW (selected MENSA & -ID) + (day_id)
+        Intent intent = new Intent(MainActivity.this, MeallistActivity.class);
+        intent.putExtra("mensa_id", mensaId);
+        intent.putExtra("mensa_name", mensas.get(index).getName());
+        intent.putExtra("day_id", ID);
+        startActivity(intent);
+    }
+
 
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -197,13 +194,11 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        //if (id == R.id.action_settings) {
-        //    return true;
-        //}
-
         return super.onOptionsItemSelected(item);
     }
+
+
+    // initalize all GUI - Elements:
     public void getUiElements(){
         sp_mensa = findViewById(R.id.spin_mensa);
         sp_datum = findViewById(R.id.spin_datum);
@@ -220,6 +215,9 @@ public class MainActivity extends AppCompatActivity {
         cb_wild = findViewById(R.id.check_wild);
         cb_kalb = findViewById(R.id.check_kalb);
     }
+
+
+    // LOAD Settings from .xml - file:
     public void loadSettings(){
         // load Spinner
         SharedPreferences pref_load = getSharedPreferences(MainActivity.speiseplaner_settings, MODE_PRIVATE);
@@ -243,12 +241,17 @@ public class MainActivity extends AppCompatActivity {
         cb_kalb.setChecked(pref_load.getBoolean(key_kalb, false));
     }
 
+
+    // SAVE Settings into .xml - file:
     public void saveSettings(){
+        // LOCATION:
         SharedPreferences.Editor pref_save = getSharedPreferences(speiseplaner_settings, MODE_PRIVATE).edit();
         pref_save.putBoolean(key_alle, switch_all.isChecked());
+
         // save Spinner
         pref_save.putString(key_mensa, sp_mensa.getSelectedItem().toString());
         pref_save.putString(key_datum, sp_datum.getSelectedItem().toString());
+
         // save CheckBoxes
         pref_save.putBoolean(key_fisch, cb_fisch.isChecked());
         pref_save.putBoolean(key_fleischlos, cb_fleischlos.isChecked());
@@ -264,6 +267,9 @@ public class MainActivity extends AppCompatActivity {
         pref_save.apply();
     }
 
+
+
+    // Toggles all CHECKBOXES, if the SWITCH is on (& vice versa)
     public void setSwitch(){
         switch_all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -296,8 +302,10 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
     }
+
+
+    // Checks if the SWITCH (Alle Kategorien) has to be toggled
     public void setCheckBoxes(){
         for (int i = 0; i< all_cb.length; i++) {
             all_cb[i].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -318,5 +326,22 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+
+    // Sets the DropDownMenu & Fills the date[] -Array (Also fills date_map & dayofweek)
+    public void setDateDropDown() {
+        //Aktuelles Datum
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        datum = new String[7];
+        for (int i = 0; i <= 6; i++){
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DATE,i);
+            Integer dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+            dayofweek = dayOfWeek.toString();
+            String next = sdf.format(cal.getTime());
+            date_map.put(next, dayofweek);
+            datum[i] = next;
+        }
     }
 }

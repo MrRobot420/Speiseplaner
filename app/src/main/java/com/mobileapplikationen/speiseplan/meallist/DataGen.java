@@ -2,6 +2,8 @@ package com.mobileapplikationen.speiseplan.meallist;
 
 import java.util.ArrayList;
 
+
+// Generates DUMMY-Data
 public class DataGen {
 
     public static ArrayList<Meal> generate() {

@@ -1,6 +1,8 @@
 package com.mobileapplikationen.speiseplan.meallist;
 
-public class Meal
+import android.support.annotation.NonNull;
+
+public class Meal implements Comparable<Meal>
 {
 
     public Meal() {
@@ -177,5 +179,10 @@ public class Meal
     public String toString()
     {
         return "Meal [uid = "+uid+", pricebed = "+pricebed+", id = "+id+", price = "+price+", priceguest = "+priceguest+", name = "+name+", self = "+self+", validOnDate = "+validOnDate+", additivenumbers = "+additivenumbers+", foodtype = "+foodtype+"]";
+    }
+
+    @Override
+    public int compareTo(@NonNull Meal meal) {
+        return this.foodtype.toLowerCase().compareTo(meal.foodtype.toLowerCase());
     }
 }

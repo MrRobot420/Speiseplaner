@@ -109,18 +109,11 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 // Date mapping
                 String date = sp_datum.getSelectedItem().toString();
                 String ID = date_map.get(date);
 
-
-
-
                 //Date selected_date = new SimpleDateFormat("dd.MM.yyyy").parse(date);
-
-
 
                 String mensaId = null;
                 int index = 0;

@@ -214,13 +214,36 @@ public class MeallistActivity extends AppCompatActivity implements OnMealsClickL
 
 
 
-            // Init DATA
-            RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
-            mRecyclerView.setHasFixedSize(true);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(MeallistActivity.this));
+            if (selected_meals.size() == 0) {
+                System.out.println("HEUTE GIBT ES KEIN ESSEN FÜR DICH!");
+                //Snackbar.make(view_popup, "HEUTE GIBT ES KEIN ESSEN FÜR DICH!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
-            MeallistViewAdapter mAdapter = new MeallistViewAdapter(selected_meals,MeallistActivity.this);
-            mRecyclerView.setAdapter(mAdapter);
+
+                Meal meal = new Meal();
+                meal.setName("HEUTE GIBT ES LEIDER KEIN ESSEN FÜR DICH!");
+                selected_meals.add(meal);
+
+                
+                RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
+                mRecyclerView.setHasFixedSize(true);
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(MeallistActivity.this));
+
+                MeallistViewAdapter mAdapter = new MeallistViewAdapter(selected_meals,MeallistActivity.this);
+                mRecyclerView.setAdapter(mAdapter);
+
+            } else {
+                // Init DATA
+                RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
+                mRecyclerView.setHasFixedSize(true);
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(MeallistActivity.this));
+
+                MeallistViewAdapter mAdapter = new MeallistViewAdapter(selected_meals,MeallistActivity.this);
+                mRecyclerView.setAdapter(mAdapter);
+            }
+
+
+
+
 
         }
     }

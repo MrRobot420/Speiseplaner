@@ -95,44 +95,80 @@ public class MeallistViewAdapter extends RecyclerView.Adapter<MeallistViewAdapte
 
 
             this.name.setText(name);
-            this.price.setText(stud_price);
-            this.price_prof.setText(bedi_price);
-            this.price_guest.setText(guest_price);
+
 
 
             if (type.toLowerCase().equals("r")) {
                 type_view.setImageResource(R.drawable.cow_100);
                 card_view.setBackgroundColor(Color.rgb(252, 244, 244));
+                this.price.setText(stud_price);
+                this.price_prof.setText(bedi_price);
+                this.price_guest.setText(guest_price);
             } else if (type.toLowerCase().equals("v")) {
                 type_view.setImageResource(R.drawable.vegan_100);
                 card_view.setBackgroundColor(Color.rgb(233, 241, 234));
+                this.price.setText(stud_price);
+                this.price_prof.setText(bedi_price);
+                this.price_guest.setText(guest_price);
             } else if (type.toLowerCase().equals("fl")) {
                 type_view.setImageResource(R.drawable.veget_100);
                 card_view.setBackgroundColor(Color.rgb(236, 247, 233));
+                this.price.setText(stud_price);
+                this.price_prof.setText(bedi_price);
+                this.price_guest.setText(guest_price);
             } else if (type.toLowerCase().equals("g")) {
                 type_view.setImageResource(R.drawable.chicken_100);
                 card_view.setBackgroundColor(Color.rgb(247, 233, 233));
+                this.price.setText(stud_price);
+                this.price_prof.setText(bedi_price);
+                this.price_guest.setText(guest_price);
             } else if (type.toLowerCase().equals("l")) {
                 type_view.setImageResource(R.drawable.sheep_100);
                 card_view.setBackgroundColor(Color.rgb(245, 245, 235));
+                this.price.setText(stud_price);
+                this.price_prof.setText(bedi_price);
+                this.price_guest.setText(guest_price);
             } else if (type.toLowerCase().equals("k")) {
                 type_view.setImageResource(R.drawable.calf_52);
                 card_view.setBackgroundColor(Color.rgb(245, 245, 235));
+                this.price.setText(stud_price);
+                this.price_prof.setText(bedi_price);
+                this.price_guest.setText(guest_price);
             } else if (type.toLowerCase().equals("s")) {
                 type_view.setImageResource(R.drawable.pig_100);
                 card_view.setBackgroundColor(Color.rgb(252, 244, 236));
+                this.price.setText(stud_price);
+                this.price_prof.setText(bedi_price);
+                this.price_guest.setText(guest_price);
             } else if (type.toLowerCase().equals("f")) {
                 type_view.setImageResource(R.drawable.fish_100);
                 card_view.setBackgroundColor(Color.rgb(243, 245, 252));
+                this.price.setText(stud_price);
+                this.price_prof.setText(bedi_price);
+                this.price_guest.setText(guest_price);
             } else if (type.toLowerCase().equals("w")) {
                 type_view.setImageResource(R.drawable.deer_100);
                 card_view.setBackgroundColor(Color.rgb(245, 245, 235));
+                this.price.setText(stud_price);
+                this.price_prof.setText(bedi_price);
+                this.price_guest.setText(guest_price);
             } else if (type.toLowerCase().equals("vo")) {
                 type_view.setImageResource(R.drawable.ham_90);
                 card_view.setBackgroundColor(Color.rgb(245, 245, 235));
+                this.price.setText(stud_price);
+                this.price_prof.setText(bedi_price);
+                this.price_guest.setText(guest_price);
             } else if (type.toLowerCase().equals("a")) {
                 type_view.setImageResource(R.drawable.alcohol_100);
                 card_view.setBackgroundColor(Color.rgb(245, 245, 235));
+                this.price.setText(stud_price);
+                this.price_prof.setText(bedi_price);
+                this.price_guest.setText(guest_price);
+            } else {
+                card_view.setBackgroundColor(Color.rgb(255, 255, 255));
+                this.price.setText("");
+                this.price_prof.setText("");
+                this.price_guest.setText("");
             }
 
 
@@ -141,7 +177,7 @@ public class MeallistViewAdapter extends RecyclerView.Adapter<MeallistViewAdapte
         @Override
         public void onClick(View v) {
 
-            if (this.name.getText().equals("HEUTE GIBT ES LEIDER KEIN ESSEN FÜR DICH!")) {
+            if (this.name.getText().equals("Du bleibst hungrig!")) {
 
             } else {
                 int pos = getAdapterPosition();

@@ -241,6 +241,7 @@ public class MeallistActivity extends AppCompatActivity implements OnMealsClickL
     public void onMealClick(Meal meal) {
         Intent intent = new Intent(MeallistActivity.this, MealdetailActivity.class);
 
+        intent.putExtra("foodData_additives", meal.getAdditivenumbers());
         intent.putExtra("foodData_name", meal.getName());
         intent.putExtra("foodData_type", meal.getFoodtype());
         // TODO implement mensa-name!!

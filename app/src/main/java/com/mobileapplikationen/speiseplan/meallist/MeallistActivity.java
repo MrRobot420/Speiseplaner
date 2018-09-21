@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MeallistActivity extends AppCompatActivity implements OnMealsClickListener {
@@ -223,7 +224,7 @@ public class MeallistActivity extends AppCompatActivity implements OnMealsClickL
                 meal.setName("HEUTE GIBT ES LEIDER KEIN ESSEN FÜR DICH!");
                 selected_meals.add(meal);
 
-                
+
                 RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
                 mRecyclerView.setHasFixedSize(true);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(MeallistActivity.this));
@@ -236,6 +237,8 @@ public class MeallistActivity extends AppCompatActivity implements OnMealsClickL
                 RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
                 mRecyclerView.setHasFixedSize(true);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(MeallistActivity.this));
+
+                Collections.sort(selected_meals);
 
                 MeallistViewAdapter mAdapter = new MeallistViewAdapter(selected_meals,MeallistActivity.this);
                 mRecyclerView.setAdapter(mAdapter);

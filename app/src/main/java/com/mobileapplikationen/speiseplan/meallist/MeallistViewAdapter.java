@@ -90,9 +90,16 @@ public class MeallistViewAdapter extends RecyclerView.Adapter<MeallistViewAdapte
 
         @Override
         public void onClick(View v) {
-            int pos = getAdapterPosition();
-            Meal meal = MeallistViewAdapter.this.foodData.get(pos);
-            onMealsClickListener.onMealClick(meal);
+
+            if (this.name.getText().equals("HEUTE GIBT ES LEIDER KEIN ESSEN FÜR DICH!")) {
+
+            } else {
+                int pos = getAdapterPosition();
+                Meal meal = MeallistViewAdapter.this.foodData.get(pos);
+                onMealsClickListener.onMealClick(meal);
+            }
+
+
             //
         }
 

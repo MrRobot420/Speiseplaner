@@ -12,6 +12,10 @@ import android.widget.TextView;
 
 import com.mobileapplikationenfhws.speiseplan.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MealdetailActivity extends AppCompatActivity {
 
     @Override
@@ -41,10 +45,10 @@ public class MealdetailActivity extends AppCompatActivity {
 
         mensa_view.setText(mensa);
         name_view.setText(name);
-        date_view.setText(date);
-        price_view.setText(price);
-        price_b_view.setText(price_be);
-        price_g_view.setText(price_gu);
+        date_view.setText(cutString(date));
+        price_view.setText(price + "€");
+        price_b_view.setText(price_be + "€");
+        price_g_view.setText(price_gu + "€");
 
 
         if (type.toLowerCase().equals("r")) {
@@ -78,6 +82,29 @@ public class MealdetailActivity extends AppCompatActivity {
     private String fetchIntentData(Intent intent, String key) {
         String data = intent.getExtras().getString(key);
         return data;
+    }
+
+    public String cutString(String date) {
+        char[] array = date.toCharArray();
+        String end_date = "";
+
+        for (int i = 0; i < array.length - 1; i++) {
+            if (array[i] == 'T') {
+                break;
+            } else {
+                end_date += array[i];
+            }
+        }
+        SimpleDateFormat dtf_before = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date dt = dtf_before.parse(end_date);
+            SimpleDateFormat dtf_after = new SimpleDateFormat("dd.MM.yyyy");
+            end_date = dtf_after.format(dt);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return end_date;
     }
 
 }

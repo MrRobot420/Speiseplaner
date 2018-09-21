@@ -177,7 +177,7 @@ public class MeallistViewAdapter extends RecyclerView.Adapter<MeallistViewAdapte
         @Override
         public void onClick(View v) {
 
-            if (this.name.getText().equals("Du bleibst hungrig!")) {
+            if (this.name.getText().equals("Sie bleiben leider hungrig!")) {
 
             } else {
                 int pos = getAdapterPosition();

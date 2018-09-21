@@ -221,7 +221,7 @@ public class MeallistActivity extends AppCompatActivity implements OnMealsClickL
 
 
                 Meal meal = new Meal();
-                meal.setName("Du bleibst hungrig!");
+                meal.setName("Sie bleiben leider hungrig!");
                 meal.setFoodtype("X");
                 selected_meals.add(meal);
 

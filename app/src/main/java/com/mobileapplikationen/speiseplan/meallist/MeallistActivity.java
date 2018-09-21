@@ -206,7 +206,7 @@ public class MeallistActivity extends AppCompatActivity implements OnMealsClickL
 
             for (int i = 0; i <= foodTypes.size()-1; i++) {
                 for (int j = 0; j <= meals.size()-1; j++) {
-                    if (meals.get(j).getFoodtype().equals(foodTypes.get(i))) {
+                    if (meals.get(j).getFoodtype().toLowerCase().equals(foodTypes.get(i).toLowerCase())) {
                         selected_meals.add(meals.get(j));
                     }
                 }

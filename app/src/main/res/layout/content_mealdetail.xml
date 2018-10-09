@@ -135,6 +135,7 @@
                 android:paddingBottom="4dp"
                 android:text="type"
                 android:textSize="20sp"
+                android:elevation="48dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.973"
